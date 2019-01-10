@@ -13,7 +13,7 @@ import java.util.function.Function;
             return delegate.apply(f);
         } catch (Exception e) {
             errorStrategy.handle(e);
-            throw new RuntimeException("Error strategy " + errorStrategy + " broke contract");
+            throw new RuntimeException("Error strategy " + errorStrategy + " broke contract, it should have thrown an exception");
         }
     }
 }

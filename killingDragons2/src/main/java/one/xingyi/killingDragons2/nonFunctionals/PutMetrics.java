@@ -5,6 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
+//This is how we do metrics. We just decoupled ourselves from the actual implementation by doing this
 public interface PutMetrics {
     void addOne(String metricName);
 

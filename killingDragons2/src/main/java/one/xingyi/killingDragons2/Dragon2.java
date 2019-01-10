@@ -11,12 +11,13 @@ import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-import static one.xingyi.killingDragons2.validators.Validator.*;
-import static one.xingyi.killingDragons2.nonFunctionals.NonFunctionals.*;
+import static one.xingyi.killingDragons2.DragonDamageResult.result;
 import static one.xingyi.killingDragons2.DragonMessages.*;
+import static one.xingyi.killingDragons2.DragonNonFunctionals.nonFunctionals;
 import static one.xingyi.killingDragons2.DragonValidators.*;
-import static one.xingyi.killingDragons2.DragonNonFunctionals.*;
-import static one.xingyi.killingDragons2.DragonDamageResult.*;
+import static one.xingyi.killingDragons2.nonFunctionals.NonFunctionals.*;
+import static one.xingyi.killingDragons2.validators.Validator.compose;
+import static one.xingyi.killingDragons2.validators.Validator.validate;
 
 interface DragonMessages {
     String weKilledADragon = "we killed a dragon!";

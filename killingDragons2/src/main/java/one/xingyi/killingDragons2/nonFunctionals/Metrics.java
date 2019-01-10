@@ -2,6 +2,7 @@ package one.xingyi.killingDragons2.nonFunctionals;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
+//Wraps another function, evaluates how it went (by calculating a metric name) and then adds one to the metric
 class Metrics<From, To> implements Function<From, To> {
 
     final PutMetrics putMetrics;

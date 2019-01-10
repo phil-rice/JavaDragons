@@ -4,6 +4,8 @@ import org.apache.log4j.Logger;
 
 import java.util.function.BiFunction;
 import java.util.function.Function;
+
+//This is tightly coupled to Log4J. It would be good to decouple it like the PutMetrics have done.
 class LoggerWrapper<F, T> implements Function<F, T> {
     final Function<F, T> fn;
     final BiFunction<F, T, String> msgFn;

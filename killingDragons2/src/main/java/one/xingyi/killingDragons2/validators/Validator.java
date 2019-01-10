@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+
 public interface Validator<T1, T2> extends BiFunction<T1, T2, List<String>> {
 
     static String errorsToString(List<String> errors) {
