@@ -11,6 +11,7 @@
     <modules>
         <module>killingDragons1</module>
         <module>killingDragons2</module>
+        <module>YourCodeGoesHere</module>
     </modules>
     <build>
         <plugins>
