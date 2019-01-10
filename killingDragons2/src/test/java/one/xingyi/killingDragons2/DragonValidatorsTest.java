@@ -8,13 +8,11 @@ import java.util.List;
 
 import static one.xingyi.killingDragons2.DragonMessages.alreadyDead;
 import static one.xingyi.killingDragons2.DragonMessages.cannotDoNegativeDamage;
+import static one.xingyi.killingDragons2.DragonValidators.*;
 import static org.junit.Assert.*;
 
-public class DragonValidatorsTest {
 
-    Validator<Integer, Dragon2> checkDragonIsntDead = (d, dragon) -> !dragon.alive ? Arrays.asList(alreadyDead) : Arrays.asList();
-    Validator<Integer, Dragon2> checkCannotDoNegativeDamage = (d, dragon) -> d < 0 ? Arrays.asList(cannotDoNegativeDamage) : Arrays.asList();
-    Function3<Integer, Dragon2, List<String>, DragonDamageResult> onValidateFail = (d, dragon, errors) -> new DragonDamageResult(dragon, Validator.errorsToString(errors));
+public class DragonValidatorsTest {
 
     @Test
     public void testCheckDragonIsntDead() {
