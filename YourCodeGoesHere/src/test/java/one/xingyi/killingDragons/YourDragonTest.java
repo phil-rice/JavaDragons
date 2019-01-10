@@ -15,7 +15,6 @@ public class YourDragonTest {
     @Test
     public void testCreatedFreshDragonAlive() {
         assertEquals(true, fresh.alive);
-        assertEquals(false, fresh.isDead());
     }
 
     @Test

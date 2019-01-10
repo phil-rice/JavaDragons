@@ -1,6 +1,7 @@
 package one.xingyi.killingDragons1;
 import org.apache.log4j.Logger;
 
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 public class Dragon1 {
@@ -51,4 +52,19 @@ public class Dragon1 {
         return Objects.hash(super.hashCode(), hitpoints, alive);
     }
     @Override public String toString() { return "Dragon1{hitpoints=" + hitpoints + ", alive=" + alive + '}'; }
+    public static void main(String[] args) {
+        System.out.println("Killing Dragons for Fun and Profit");
+
+        Dragon1 d1 = Dragon1.freshDragon;
+        Dragon1 d2 = d1.damage(100);
+        Dragon1 d3 = d2.damage(100);
+        Dragon1 d4 = d2.damage(900);
+        for (Dragon1 d : Arrays.asList(d1, d2, d3, d4))
+            System.out.println(d);
+        System.out.println("Your dragons is " + (d4.alive ? "alive" : "dead"));
+        System.out.println();
+        System.out.println("Metrics are: ");
+        System.out.println(Dragon1.damageCount.get());
+
+    }
 }
