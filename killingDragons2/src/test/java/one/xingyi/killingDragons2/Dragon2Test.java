@@ -1,7 +1,9 @@
 package one.xingyi.killingDragons2;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+
 public class Dragon2Test {
     Dragon2 fresh = Dragon2.freshDragon;
     Dragon2 hitpoints900 = new Dragon2(900, true);
@@ -11,10 +13,12 @@ public class Dragon2Test {
     void checkDoDamage(Dragon2 expected, Dragon2 original, int hitpoints, String msg) {
         assertEquals(new DragonDamageResult(expected, msg), original.damage().apply(hitpoints));
     }
+
     @Test
     public void testCreatedFreshDragonWith1000HitPoints() {
         assertEquals(1000, Dragon2.freshDragon.hitpoints);
     }
+
     @Test
     public void testCreatedFreshDragonAlive() {
         assertEquals(true, fresh.alive);
@@ -25,12 +29,14 @@ public class Dragon2Test {
         checkDoDamage(hitpoints900, fresh, 100, DragonMessages.damaged);
         checkDoDamage(hitpoints100, fresh, 900, DragonMessages.damaged);
     }
+
     @Test
     public void testJustKillingDragon_ZeroHitpointsIsDeath() {
         checkDoDamage(dead, fresh, 1000, DragonMessages.weKilledADragon);
         checkDoDamage(dead, hitpoints900, 900, DragonMessages.weKilledADragon);
         checkDoDamage(dead, hitpoints100, 100, DragonMessages.weKilledADragon);
     }
+
     @Test
     public void testOverKillingDragon() {
         checkDoDamage(dead, fresh, 10000, DragonMessages.weKilledADragon);
@@ -54,13 +60,4 @@ public class Dragon2Test {
         checkDoDamage(dead, dead, -100, "[Cannot do negative damage, alreadyDead]");
     }
 
-    @Test
-    public void testCounter() {
-//        assertEquals(2, Dragon2.counts());//what's wrong with this?
-    }
-
-    @Test
-    public void testLogging() {
-        //OK how do we do this?????
-    }
 }

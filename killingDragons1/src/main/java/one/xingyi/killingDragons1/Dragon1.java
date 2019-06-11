@@ -61,7 +61,7 @@ public class Dragon1 {
         Dragon1 d4 = d2.damage(900);
         for (Dragon1 d : Arrays.asList(d1, d2, d3, d4))
             System.out.println(d);
-        System.out.println("Your dragons is " + (d4.alive ? "alive" : "dead"));
+        System.out.println("Your dragon is " + (d4.alive ? "alive" : "dead"));
         System.out.println();
         System.out.println("Metrics are: ");
         System.out.println(Dragon1.damageCount.get());

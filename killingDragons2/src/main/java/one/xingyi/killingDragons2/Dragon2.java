@@ -1,4 +1,6 @@
 package one.xingyi.killingDragons2;
+import lombok.EqualsAndHashCode;
+import lombok.RequiredArgsConstructor;
 import one.xingyi.killingDragons2.functions.Function3;
 import one.xingyi.killingDragons2.nonFunctionals.ErrorStrategy;
 import one.xingyi.killingDragons2.nonFunctionals.PutMetrics;
@@ -49,6 +51,8 @@ interface DragonNonFunctionals {
     }
 }
 
+@RequiredArgsConstructor
+@EqualsAndHashCode
 public class Dragon2 {
     final int hitpoints;
     final boolean alive;
@@ -56,17 +60,14 @@ public class Dragon2 {
     final public static Dragon2 freshDragon = new Dragon2(1000, true);
     final static Dragon2 dead = new Dragon2(0, false);
 
-    Dragon2(int hitpoints, boolean alive) {
-        this.hitpoints = hitpoints;
-        this.alive = alive;
-    }
-
     public Function<Integer, DragonDamageResult> damage() {
         return nonFunctionals(this, damage -> {
             int newHitpoints = hitpoints - damage;
             return newHitpoints > 0 ? result(newHitpoints, damaged) : result(dead, weKilledADragon);
         });
     }
+
+    @Override public String toString() { return "Dragon2{hitpoints=" + hitpoints + ", alive=" + alive + '}'; }
 
     public static void main(String[] args) {
         System.out.println("Killing Dragons for Fun and Profit");
@@ -77,23 +78,10 @@ public class Dragon2 {
         DragonDamageResult d4 = d2.dragon.damage().apply(900);
         for (DragonDamageResult d : Arrays.asList(d2, d3, d4))
             System.out.println(d);
-        System.out.println("Your dragons is " + (dead.alive ? "alive" : "dead"));
+        System.out.println("Your dragon is " + (dead.alive ? "alive" : "dead"));
         System.out.println();
         System.out.println("Metrics are: ");
-        System.out.println(PutMetrics.atomicCountersData());
+        System.out.println(DragonNonFunctionals.metricsSystem);
 
     }
-
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-        Dragon2 dragon = (Dragon2) object;
-        return hitpoints == dragon.hitpoints && alive == dragon.alive;
-    }
-
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), hitpoints, alive);
-    }
-    @Override public String toString() { return "Dragon2{hitpoints=" + hitpoints + ", alive=" + alive + '}'; }
-
 }

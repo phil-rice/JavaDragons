@@ -1,13 +1,12 @@
 package one.xingyi.killingDragons2.nonFunctionals;
-import java.util.function.Function;
- class ErrorHandler<F, T> implements Function<F, T> {
-    final Function<F, T> delegate;
-    final ErrorStrategy errorStrategy;
+import lombok.RequiredArgsConstructor;
 
-     ErrorHandler(ErrorStrategy errorStrategy, Function<F, T> delegate) {
-        this.delegate = delegate;
-        this.errorStrategy = errorStrategy;
-    }
+import java.util.function.Function;
+@RequiredArgsConstructor
+ class ErrorHandler<F, T> implements Function<F, T> {
+    final ErrorStrategy errorStrategy;
+    final Function<F, T> delegate;
+
     @Override public T apply(F f) {
         try {
             return delegate.apply(f);

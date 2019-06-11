@@ -9,21 +9,14 @@ import java.util.concurrent.atomic.AtomicReference;
 public interface PutMetrics {
     void addOne(String metricName);
 
-    static PutMetrics println() { return name -> System.out.println("Adding one to metric " + name + "  " + atomicCountersData()); }
+    static PutMetrics println() { return name -> System.out.println("Metric [" + name + "] has occured "); }
 
     static PutMetrics atomicCounters() { return new AtomicCounters(); }
 
-    static Map<String, Integer> atomicCountersData() {
-        Map<String, Integer> result = new HashMap<>();
-        for (Map.Entry<String, AtomicInteger> e : AtomicCounters.map.entrySet()) {
-            result.put(e.getKey(), e.getValue().get());
-        }
-        return result;
-    }
 }
 
 class AtomicCounters implements PutMetrics {
-    static Map<String, AtomicInteger> map = new ConcurrentHashMap<>();
+    Map<String, AtomicInteger> map = new ConcurrentHashMap<>();
 
     AtomicInteger get(String metricName) {
         AtomicInteger result = map.get(metricName);
@@ -36,5 +29,10 @@ class AtomicCounters implements PutMetrics {
 
     @Override public void addOne(String metricName) {
         get(metricName).incrementAndGet();
+    }
+
+    @Override
+    public String toString() {
+        return map.toString();
     }
 }
