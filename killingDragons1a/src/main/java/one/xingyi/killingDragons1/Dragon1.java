@@ -1,25 +1,24 @@
 package one.xingyi.killingDragons1;
 
-import lombok.EqualsAndHashCode;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.apache.log4j.Logger;
 
 import java.text.MessageFormat;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @ToString
 @EqualsAndHashCode
+@Getter
 class DragonAndResult {
     final Dragon1 dragon;
     final String result;
 }
-
 
 public class Dragon1 {
     final static Logger logger = Logger.getLogger(Dragon1.class);
@@ -54,12 +53,30 @@ public class Dragon1 {
             return dr;
         };
     }
-
+    //Scaffolding
     public Dragon1 damage(int damage) {
         return logMe(this::mydamage).apply(damage).dragon;
     }
 
     public DragonAndResult mydamage(int damage) {
+        try {
+            if (damage <= 0 || isDead()) return new DragonAndResult(this, "validationError");
+            int newHitpoints = hitpoints - damage;
+            if (newHitpoints <= 0) {
+//                logger.info("dragon was hit for " + damage + " and is now DEAD!");
+                return new DragonAndResult(new Dragon1(0, false), "killedIt");
+            } else {
+                damageCount.incrementAndGet();
+//                logger.info("damage dragon for " + damage + "hitpoints. Hitpoints now" + newHitpoints);
+                return new DragonAndResult(new Dragon1(newHitpoints, alive), "damagedIt");
+            }
+        } catch (RuntimeException e) {
+            logger.error("Unexpected error damaging " + this + " for " + damage + " hitpoints", e);
+            throw e;
+        }
+    }
+
+    public DragonAndResult healing(int healing) {
         try {
             if (damage <= 0 || isDead()) return new DragonAndResult(this, "validationError");
             int newHitpoints = hitpoints - damage;
