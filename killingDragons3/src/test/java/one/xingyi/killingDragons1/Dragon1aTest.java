@@ -3,14 +3,14 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 public class Dragon1aTest {
-    Dragon1a fresh = Dragon1a.freshDragon;
-    Dragon1a hitpoints900 = new Dragon1a(900, true);
-    Dragon1a hitpoints100 = new Dragon1a(100, true);
-    Dragon1a dead = new Dragon1a(0, false);
+    Dragon3 fresh = Dragon3.freshDragon;
+    Dragon3 hitpoints900 = new Dragon3(900, true);
+    Dragon3 hitpoints100 = new Dragon3(100, true);
+    Dragon3 dead = new Dragon3(0, false);
 
     @Test
     public void testCreatedFreshDragonWith1000HitPoints() {
-        assertEquals(1000, Dragon1a.freshDragon.hitpoints);
+        assertEquals(1000, Dragon3.freshDragon.hitpoints);
     }
     @Test
     public void testCreatedFreshDragonAlive() {
@@ -53,7 +53,7 @@ public class Dragon1aTest {
 
     @Test
     public void testCounter() {
-//        assertEquals(2, Dragon1a.counts());//what's wrong with this?
+//        assertEquals(2, Dragon3.counts());//what's wrong with this?
     }
 
     @Test

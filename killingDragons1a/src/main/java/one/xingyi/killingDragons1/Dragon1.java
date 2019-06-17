@@ -9,7 +9,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @ToString
@@ -18,6 +17,12 @@ import java.util.stream.Collectors;
 class DragonAndResult {
     final Dragon1 dragon;
     final String result;
+}
+
+class DragonConstants {
+    public static String validationError = "validationError";
+    public static String killedIt = "killedIt";
+    public static String damagedIt = "damagedIt";
 }
 
 public class Dragon1 {
@@ -46,46 +51,48 @@ public class Dragon1 {
 
     static ResourceBundle bundle = ResourceBundle.getBundle("dragons");
 
-    Function<Integer, DragonAndResult> logMe(Function<Integer, DragonAndResult> delegate) {
+    <From, To> Function<From, To> sideeffect(BiConsumer<From, To> consumer, Function<From, To> delegate) {
         return from -> {
-            DragonAndResult dr = delegate.apply(from);
-            logger.info(MessageFormat.format(dr.result, new Object[]{from, dr.dragon.hitpoints}));
-            return dr;
+            To to = delegate.apply(from);
+            consumer.accept(from, to);
+            return to;
         };
     }
+
+    <From, To> Function<From, To> logMe(Function<To, String> messageFn, BiFunction<From, To, Object[]> paramsFn, Function<From, To> delegate) {
+        return sideeffect((from, to) ->
+                logger.info(MessageFormat.format(bundle.getString(messageFn.apply(to)), paramsFn.apply(from, to))), delegate);
+    }
+
+    public <From, To> Function<From, To> metrics(MetricsAbstraction abstraction, Function<To, String> metricsNameFn, Function<From, To> delegate) {
+        return sideeffect((from, to) ->
+            abstraction.addOneTo(metricsNameFn.apply(to)), delegate);
+    }
+
     //Scaffolding
     public Dragon1 damage(int damage) {
-        return logMe(this::mydamage).apply(damage).dragon;
+        return metrics(MetricsAbstraction.dragonMetrics, DragonAndResult::getResult,
+                logMe(DragonAndResult::getResult, (d, dr) -> new Object[]{d, dr.dragon.hitpoints},
+                        this::mydamage)).apply(damage).dragon;
     }
+
+
+    interface MetricsAbstraction {
+        void addOneTo(String countName);
+
+        MetricsAbstraction dragonMetrics = countName -> {
+            if (countName.equals("damageCount")) damageCount.incrementAndGet();
+        };
+    }
+
 
     public DragonAndResult mydamage(int damage) {
         try {
             if (damage <= 0 || isDead()) return new DragonAndResult(this, "validationError");
             int newHitpoints = hitpoints - damage;
             if (newHitpoints <= 0) {
-//                logger.info("dragon was hit for " + damage + " and is now DEAD!");
                 return new DragonAndResult(new Dragon1(0, false), "killedIt");
             } else {
-                damageCount.incrementAndGet();
-//                logger.info("damage dragon for " + damage + "hitpoints. Hitpoints now" + newHitpoints);
-                return new DragonAndResult(new Dragon1(newHitpoints, alive), "damagedIt");
-            }
-        } catch (RuntimeException e) {
-            logger.error("Unexpected error damaging " + this + " for " + damage + " hitpoints", e);
-            throw e;
-        }
-    }
-
-    public DragonAndResult healing(int healing) {
-        try {
-            if (damage <= 0 || isDead()) return new DragonAndResult(this, "validationError");
-            int newHitpoints = hitpoints - damage;
-            if (newHitpoints <= 0) {
-//                logger.info("dragon was hit for " + damage + " and is now DEAD!");
-                return new DragonAndResult(new Dragon1(0, false), "killedIt");
-            } else {
-                damageCount.incrementAndGet();
-//                logger.info("damage dragon for " + damage + "hitpoints. Hitpoints now" + newHitpoints);
                 return new DragonAndResult(new Dragon1(newHitpoints, alive), "damagedIt");
             }
         } catch (RuntimeException e) {

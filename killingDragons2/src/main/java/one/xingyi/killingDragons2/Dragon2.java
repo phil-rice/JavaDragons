@@ -1,4 +1,5 @@
 package one.xingyi.killingDragons2;
+
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import one.xingyi.killingDragons2.functions.Function3;
@@ -43,10 +44,11 @@ interface DragonNonFunctionals {
     PutMetrics metricsSystem = PutMetrics.atomicCounters();
 
     static Function<Integer, DragonDamageResult> nonFunctionals(Dragon2 dragon2, Function<Integer, DragonDamageResult> fn) {
-        return errors(ErrorStrategy.justThrow,
-                metrics(metricsSystem, metricNameFn,
-                        log(logger, logMsgFn,
-                                validate(compose(checkCannotDoNegativeDamage, checkDragonIsntDead), onValidateFail, dragon2, fn))));
+        return
+                errors(ErrorStrategy.justThrow,
+                        metrics(metricsSystem, metricNameFn,
+                                log(logger, logMsgFn,
+                                        validate(compose(checkCannotDoNegativeDamage, checkDragonIsntDead), onValidateFail, dragon2, fn))));
 
     }
 }
@@ -67,7 +69,10 @@ public class Dragon2 {
         });
     }
 
-    @Override public String toString() { return "Dragon2{hitpoints=" + hitpoints + ", alive=" + alive + '}'; }
+    @Override
+    public String toString() {
+        return "Dragon2{hitpoints=" + hitpoints + ", alive=" + alive + '}';
+    }
 
     public static void main(String[] args) {
         System.out.println("Killing Dragons for Fun and Profit");

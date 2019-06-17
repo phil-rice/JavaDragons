@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 
 public class DragonNonFunctionalsTest {
 
-    DragonNonFunctionals dragonNonFunctionals = new DragonNonFunctionals(MyLogger.nullLogger);
+    DragonNonFunctionals dragonNonFunctionals = new DragonNonFunctionals();
     CompositeFunction<Attack, DragonAndResult> compose = (CompositeFunction<Attack, DragonAndResult>) dragonNonFunctionals.nonFunctionals;
     List<DelegateFunction<Attack, DragonAndResult>> delegates = compose.fns;
 
