@@ -1,15 +1,16 @@
 package one.xingyi.killingDragons2;
+
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import one.xingyi.killingDragons2.functions.Function3;
 import one.xingyi.killingDragons2.nonFunctionals.ErrorStrategy;
 import one.xingyi.killingDragons2.nonFunctionals.PutMetrics;
 import one.xingyi.killingDragons2.validators.Validator;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
@@ -39,7 +40,8 @@ interface DragonValidators {
 interface DragonNonFunctionals {
     BiFunction<Integer, DragonDamageResult, String> metricNameFn = (oldD, newD) -> newD.description;
     BiFunction<Integer, DragonDamageResult, String> logMsgFn = (oldD, newD) -> "Hit dragon for " + oldD + " and did " + newD.description;
-    Logger logger = Logger.getLogger(Dragon2.class);
+    final static Logger logger = LogManager.getLogger(Dragon2.class);
+
     PutMetrics metricsSystem = PutMetrics.atomicCounters();
 
     static Function<Integer, DragonDamageResult> nonFunctionals(Dragon2 dragon2, Function<Integer, DragonDamageResult> fn) {

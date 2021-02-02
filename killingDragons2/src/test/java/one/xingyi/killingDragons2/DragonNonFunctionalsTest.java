@@ -1,14 +1,12 @@
 package one.xingyi.killingDragons2;
 
-import one.xingyi.killingDragons2.Dragon2;
-import one.xingyi.killingDragons2.DragonDamageResult;
 import one.xingyi.killingDragons2.nonFunctionals.ErrorStrategy;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
-
-import static one.xingyi.killingDragons2.DragonDamageResult.*;
-import static one.xingyi.killingDragons2.DragonNonFunctionals.*;
+import static one.xingyi.killingDragons2.DragonNonFunctionals.logMsgFn;
+import static one.xingyi.killingDragons2.DragonNonFunctionals.metricNameFn;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class DragonNonFunctionalsTest {
 

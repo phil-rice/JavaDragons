@@ -1,7 +1,7 @@
 package one.xingyi.killingDragons2;
-import one.xingyi.killingDragons2.functions.Function3;
+
 import one.xingyi.killingDragons2.validators.Validator;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
 import static one.xingyi.killingDragons2.DragonMessages.alreadyDead;
 import static one.xingyi.killingDragons2.DragonMessages.cannotDoNegativeDamage;
 import static one.xingyi.killingDragons2.DragonValidators.*;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class DragonValidatorsTest {

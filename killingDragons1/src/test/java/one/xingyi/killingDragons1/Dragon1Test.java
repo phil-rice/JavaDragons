@@ -1,7 +1,9 @@
 package one.xingyi.killingDragons1;
-import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class Dragon1Test {
     Dragon1 fresh = Dragon1.freshDragon;
     Dragon1 hitpoints900 = new Dragon1(900, true);

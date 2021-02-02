@@ -1,11 +1,16 @@
 package one.xingyi.killingDragons1;
-import org.apache.log4j.Logger;
+
+import lombok.EqualsAndHashCode;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
+@RequiredArgsConstructor @ToString @EqualsAndHashCode
 public class Dragon1 {
-    final static Logger logger = Logger.getLogger(Dragon1.class);
+    final static Logger logger = LogManager.getLogger(Dragon1.class);
 
     final int hitpoints;
     final boolean alive;
@@ -19,10 +24,6 @@ public class Dragon1 {
     }
     public static Dragon1 freshDragon = new Dragon1(1000, true);
 
-    Dragon1(int hitpoints, boolean alive) {
-        this.hitpoints = hitpoints;
-        this.alive = alive;
-    }
 
     public Dragon1 damage(int damage) {
         try {
@@ -41,17 +42,7 @@ public class Dragon1 {
             throw e;
         }
     }
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-        Dragon1 dragon = (Dragon1) object;
-        return hitpoints == dragon.hitpoints && alive == dragon.alive;
-    }
 
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), hitpoints, alive);
-    }
-    @Override public String toString() { return "Dragon1{hitpoints=" + hitpoints + ", alive=" + alive + '}'; }
     public static void main(String[] args) {
         System.out.println("Killing Dragons for Fun and Profit");
 

@@ -1,7 +1,7 @@
 package one.xingyi.killingDragons2.nonFunctionals;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
 
 import java.util.function.BiFunction;
 import java.util.function.Function;

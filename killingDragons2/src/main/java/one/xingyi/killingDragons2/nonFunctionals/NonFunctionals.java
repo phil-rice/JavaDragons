@@ -1,5 +1,6 @@
 package one.xingyi.killingDragons2.nonFunctionals;
-import org.apache.log4j.Logger;
+
+import org.apache.logging.log4j.Logger;
 
 import java.util.function.BiFunction;
 import java.util.function.Function;
