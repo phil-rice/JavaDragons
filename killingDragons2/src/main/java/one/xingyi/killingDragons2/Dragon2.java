@@ -2,6 +2,7 @@ package one.xingyi.killingDragons2;
 
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import one.xingyi.killingDragons2.functions.Function3;
 import one.xingyi.killingDragons2.nonFunctionals.ErrorStrategy;
 import one.xingyi.killingDragons2.nonFunctionals.PutMetrics;
@@ -55,6 +56,7 @@ interface DragonNonFunctionals {
 
 @RequiredArgsConstructor
 @EqualsAndHashCode
+@ToString
 public class Dragon2 {
     final int hitpoints;
     final boolean alive;
@@ -68,8 +70,6 @@ public class Dragon2 {
             return newHitpoints > 0 ? result(newHitpoints, damaged) : result(dead, weKilledADragon);
         });
     }
-
-    @Override public String toString() { return "Dragon2{hitpoints=" + hitpoints + ", alive=" + alive + '}'; }
 
     public static void main(String[] args) {
         System.out.println("Killing Dragons for Fun and Profit");
