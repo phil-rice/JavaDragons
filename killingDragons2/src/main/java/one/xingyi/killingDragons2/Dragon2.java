@@ -65,7 +65,7 @@ public class Dragon2 {
     final static Dragon2 dead = new Dragon2(0, false);
 
     public Function<Integer, DragonDamageResult> damage() {
-        return nonFunctionals(this, damage -> {
+        return nonFunctionals(this, damage -> { //and should this even be in this class? Shouldn't we have the non functionals outside?
             int newHitpoints = hitpoints - damage;
             return newHitpoints > 0 ? result(newHitpoints, damaged) : result(dead, weKilledADragon);
         });
